@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import ApiError from "../utils/errorHandler";
+import { ApiResponse } from "../utils/respponseHandler";
 
 export const globalError = (
   error: Error,
@@ -9,5 +10,5 @@ export const globalError = (
 ) => {
   const statusCode = error instanceof ApiError ? error.statusCode : 500;
   const message = error.message || "Internal Server Error";
-  res.status(statusCode).json({ message });
+  res.status(statusCode).json(new ApiResponse(false, message));
 };
